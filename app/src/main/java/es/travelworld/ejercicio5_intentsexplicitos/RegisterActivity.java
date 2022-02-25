@@ -1,0 +1,156 @@
+package es.travelworld.ejercicio5_intentsexplicitos;
+
+import static es.travelworld.ejercicio5_intentsexplicitos.tools.References.KEY_USER;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import com.google.android.material.textview.MaterialTextView;
+
+import es.travelworld.ejercicio5_intentsexplicitos.databinding.ActivityRegisterBinding;
+import es.travelworld.ejercicio5_intentsexplicitos.tools.User;
+
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+
+    private ActivityRegisterBinding binding;
+    private String[] ages;
+    private User user;
+
+    //TODO Configurar el back de la flecha
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(binding.getRoot());
+
+        user = (User)getIntent().getSerializableExtra(KEY_USER);
+
+        populateAgeEditText();
+        setListeners();
+    }
+
+    private void setListeners() {
+        binding.avatarImgSelector.setOnClickListener(this);
+        binding.viewConditions.setOnClickListener(this);
+        binding.btnJoin.setOnClickListener(this);
+        binding.inputAge.setOnItemClickListener(this);
+
+        binding.inputName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.inputLayoutName.setErrorEnabled(false);
+                for (int j = 0; j < charSequence.length(); j++) {
+                    switch(charSequence.charAt(j)){
+                        case '!':
+                            binding.inputLayoutName.setError(getString(R.string.input_layput_name_error));
+                        case '@':
+                            binding.inputLayoutName.setError(getString(R.string.input_layput_name_error));
+                    }
+                }
+                validateForm();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        binding.inputLastname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.inputLayoutLastname.setErrorEnabled(false);
+                for (int j = 0; j < charSequence.length(); j++) {
+                    switch(charSequence.charAt(j)){
+                        case '!':
+                            binding.inputLayoutLastname.setError(getString(R.string.input_layput_name_error));
+                        case '@':
+                            binding.inputLayoutLastname.setError(getString(R.string.input_layput_name_error));
+                    }
+                }
+                validateForm();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void validateForm() {
+        binding.btnJoin.setEnabled(false);
+        boolean nameValidation = false;
+        boolean lastnameValidation = false;
+        boolean ageValidation = false;
+
+        if(!binding.inputName.getText().toString().equals("") && !binding.inputLayoutName.isErrorEnabled()){
+            nameValidation = true;
+        }
+        if(!binding.inputLastname.getText().toString().equals("") && !binding.inputLayoutLastname.isErrorEnabled()){
+            lastnameValidation = true;
+        }
+        if(!binding.inputAge.getText().toString().equals("") && !binding.inputLayoutAge.isErrorEnabled()){
+            ageValidation = true;
+        }
+
+        if(nameValidation && lastnameValidation && ageValidation){
+            binding.btnJoin.setEnabled(true);
+        }
+    }
+
+    private void populateAgeEditText() {
+        ages = getResources().getStringArray(R.array.ages);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.dropdown_item, ages);
+        binding.inputAge.setAdapter(adapter);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent;
+        if (view.equals(binding.avatarImgSelector)) {
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivity(intent);
+        } else if (view.equals(binding.viewConditions)) {
+            intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developers.google.com/ml-kit/terms"));
+            startActivity(intent);
+        } else if(view.equals(binding.btnJoin)){
+            user.setName(binding.inputName.getText().toString());
+            user.setLastname(binding.inputLastname.getText().toString());
+            user.setAgeGroup(binding.inputAge.getText().toString());
+
+            intent = new Intent(this,LoginActivity.class);
+            intent.putExtra(KEY_USER,user);
+            setResult(RESULT_OK,intent);
+            finish();
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        MaterialTextView materialTextView = (MaterialTextView) view;
+        binding.inputLayoutAge.setErrorEnabled(false);
+        if(materialTextView.getText() != ages[ages.length-1]){
+            binding.inputLayoutAge.setError(getString(R.string.input_layout_age_error));
+        }
+        validateForm();
+    }
+
+}
