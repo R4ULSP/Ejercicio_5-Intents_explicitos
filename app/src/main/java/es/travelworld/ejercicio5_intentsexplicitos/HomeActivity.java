@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
 
         setActionBarSettings();
 
-        Log.i("---Datos usuario","\nNombre: " + user.getName() + "\nApellidos: " + user.getLastname() + "\nEdad: " + user.getAgeGroup());
+        Log.i("---Datos usuario","\nNombre: " + user.getName() + "\nApellidos: " + user.getLastname() + "\nEdad:" + user.getAgeGroup());
     }
 
     private void setActionBarSettings() {
