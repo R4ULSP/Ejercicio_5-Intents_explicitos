@@ -13,15 +13,21 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
 
     @Override
-    //TODO Configurar actionbar
+    //TODO Configurar actionbar: poner navigationIcon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
         setContentView(binding.getRoot());
 
         user = (User)getIntent().getSerializableExtra(KEY_USER);
 
+        setActionBarSettings();
+
         Log.i("---Datos usuario","\nNombre: " + user.getName() + "\nApellidos: " + user.getLastname() + "\nEdad: " + user.getAgeGroup());
+    }
+
+    private void setActionBarSettings() {
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.home_title));
     }
 }

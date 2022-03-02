@@ -20,10 +20,11 @@
     <string name="home_activity_title">Tu App de Viajes</string>
     <string name="home_activity_text">Hola, estamos buscando a millones de usuarios con inquietudes y ganas de viajar. Si eres tu?No lo dudes accede a nuestra app y descubriras miles de destinos y facilidades para alquilar coches, ver el tiempo...</string>
     <string name="next">Next</string>
-    <string name="home_title">Upcoming meetups</string>
+    <string name="home_title">Home</string>
     <string name="card_calendar_text">USA, Los Angeles - 2 Weeks</string>
     <string name="card_calendar_title">City of Los Angeles</string>
     <string name="card_camping_text">Madives - 3 weeks</string>
     <string name="card_camping_title">Beach vacation</string>
     <string name="login_error">Error de usuario o contraseña</string>
+    <string name="register_title">Registro</string>
 </resources>

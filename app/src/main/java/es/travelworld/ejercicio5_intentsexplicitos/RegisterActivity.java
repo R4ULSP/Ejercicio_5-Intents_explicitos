@@ -2,17 +2,23 @@ package es.travelworld.ejercicio5_intentsexplicitos;
 
 import static es.travelworld.ejercicio5_intentsexplicitos.tools.References.KEY_USER;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import com.google.android.material.textview.MaterialTextView;
+
+import java.util.Objects;
 
 import es.travelworld.ejercicio5_intentsexplicitos.databinding.ActivityRegisterBinding;
 import es.travelworld.ejercicio5_intentsexplicitos.tools.User;
@@ -23,18 +29,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private String[] ages;
     private User user;
 
-    //TODO Configurar el back de la flecha
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         setContentView(binding.getRoot());
 
         user = (User)getIntent().getSerializableExtra(KEY_USER);
 
+        setActionBarSettings();
         populateAgeEditText();
         setListeners();
+    }
+
+    private void setActionBarSettings() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.register_title));
     }
 
     private void setListeners() {
@@ -42,6 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         binding.viewConditions.setOnClickListener(this);
         binding.btnJoin.setOnClickListener(this);
         binding.inputAge.setOnItemClickListener(this);
+
 
         binding.inputName.addTextChangedListener(new TextWatcher() {
             @Override
