@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import com.google.android.material.snackbar.Snackbar;
 import es.travelworld.ejercicio5_intentsexplicitos.databinding.ActivityLoginBinding;
@@ -20,7 +22,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(result.getResultCode() == Activity.RESULT_OK){
             if(result.getData() != null){
                 user = (User)result.getData().getSerializableExtra(KEY_USER);
-                binding.loginButton.setEnabled(true);
             }
         }
     });
@@ -39,6 +40,57 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding.loginForgotPasswordButton.setOnClickListener(this);
         binding.loginNewAccountButton.setOnClickListener(this);
         binding.loginButton.setOnClickListener(this);
+
+        binding.loginUser.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                validateForm();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        binding.loginPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                validateForm();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void validateForm() {
+        binding.loginButton.setEnabled(false);
+        boolean userValidation = false;
+        boolean passwordValidation = false;
+
+        if(!binding.loginUser.getText().toString().equals("")){
+            userValidation = true;
+        }
+        if(!binding.loginPassword.getText().toString().equals("")){
+            passwordValidation = true;
+        }
+
+        if(userValidation && passwordValidation){
+            binding.loginButton.setEnabled(true);
+        }
     }
 
     @Override
@@ -52,11 +104,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             activityResultLauncher.launch(intent);
         }
         else if (binding.loginButton.equals(view)){
-            checkLoginData();
+            login();
         }
     }
 
-    private void checkLoginData() {
+    private void login() {
         if(binding.loginPassword.getText().toString().equals(user.getPassword()) && binding.loginUser.getText().toString().equals(user.getName())){
             Intent intent = new Intent(this,HomeActivity.class);
             intent.putExtra(KEY_USER, user);

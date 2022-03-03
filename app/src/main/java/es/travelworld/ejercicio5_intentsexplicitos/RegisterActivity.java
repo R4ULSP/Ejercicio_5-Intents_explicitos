@@ -64,14 +64,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 binding.inputLayoutName.setErrorEnabled(false);
-                for (int j = 0; j < charSequence.length(); j++) {
-                    switch(charSequence.charAt(j)){
-                        case '!':
-                            binding.inputLayoutName.setError(getString(R.string.input_layput_name_error));
-                        case '@':
-                            binding.inputLayoutName.setError(getString(R.string.input_layput_name_error));
-                    }
-                }
+                validateChars(charSequence);
                 validateForm();
             }
 
@@ -89,14 +82,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 binding.inputLayoutLastname.setErrorEnabled(false);
-                for (int j = 0; j < charSequence.length(); j++) {
-                    switch(charSequence.charAt(j)){
-                        case '!':
-                            binding.inputLayoutLastname.setError(getString(R.string.input_layput_name_error));
-                        case '@':
-                            binding.inputLayoutLastname.setError(getString(R.string.input_layput_name_error));
-                    }
-                }
+                validateChars(charSequence);
                 validateForm();
             }
 
@@ -105,6 +91,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             }
         });
+    }
+
+    private void validateChars(CharSequence charSequence){
+        for (int j = 0; j < charSequence.length(); j++) {
+            switch(charSequence.charAt(j)){
+                case '!':
+                    binding.inputLayoutName.setError(getString(R.string.input_layput_name_error));
+                case '@':
+                    binding.inputLayoutName.setError(getString(R.string.input_layput_name_error));
+            }
+        }
     }
 
     private void validateForm() {
