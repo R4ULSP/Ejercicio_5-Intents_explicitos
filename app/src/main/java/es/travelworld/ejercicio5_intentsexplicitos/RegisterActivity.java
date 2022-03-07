@@ -1,18 +1,13 @@
 package es.travelworld.ejercicio5_intentsexplicitos;
 
 import static es.travelworld.ejercicio5_intentsexplicitos.tools.References.KEY_USER;
-
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setActionBarSettings() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.register_title));
     }
 
@@ -58,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         binding.inputName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                // Not implemented yet
             }
 
             @Override
@@ -70,13 +65,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                // Not implemented yet
             }
         });
         binding.inputLastname.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                // Not implemented yet
             }
 
             @Override
@@ -88,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                // Not implemented yet
             }
         });
     }
@@ -97,9 +92,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         for (int j = 0; j < charSequence.length(); j++) {
             switch(charSequence.charAt(j)){
                 case '!':
-                    binding.inputLayoutName.setError(getString(R.string.input_layput_name_error));
                 case '@':
                     binding.inputLayoutName.setError(getString(R.string.input_layput_name_error));
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -110,13 +107,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         boolean lastnameValidation = false;
         boolean ageValidation = false;
 
-        if(!binding.inputName.getText().toString().equals("") && !binding.inputLayoutName.isErrorEnabled()){
+        if(binding.inputName.getText()!=null && !binding.inputName.getText().toString().equals("") && !binding.inputLayoutName.isErrorEnabled()){
             nameValidation = true;
         }
-        if(!binding.inputLastname.getText().toString().equals("") && !binding.inputLayoutLastname.isErrorEnabled()){
+        if(binding.inputLastname.getText()!=null && !binding.inputLastname.getText().toString().equals("") && !binding.inputLayoutLastname.isErrorEnabled()){
             lastnameValidation = true;
         }
-        if(!binding.inputAge.getText().toString().equals("") && !binding.inputLayoutAge.isErrorEnabled()){
+        if(binding.inputAge.getText()!=null && !binding.inputAge.getText().toString().equals("") && !binding.inputLayoutAge.isErrorEnabled()){
             ageValidation = true;
         }
 
@@ -141,8 +138,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developers.google.com/ml-kit/terms"));
             startActivity(intent);
         } else if(view.equals(binding.btnJoin)){
-            user.setName(binding.inputName.getText().toString());
-            user.setLastname(binding.inputLastname.getText().toString());
+            user.setName(Objects.requireNonNull(binding.inputName.getText()).toString());
+            user.setLastname(Objects.requireNonNull(binding.inputLastname.getText()).toString());
             user.setAgeGroup(binding.inputAge.getText().toString());
 
             intent = new Intent(this,LoginActivity.class);

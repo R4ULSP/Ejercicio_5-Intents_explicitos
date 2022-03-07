@@ -4,6 +4,9 @@ import static es.travelworld.ejercicio5_intentsexplicitos.tools.References.KEY_U
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import java.util.Objects;
+
 import es.travelworld.ejercicio5_intentsexplicitos.databinding.ActivityHomeBinding;
 import es.travelworld.ejercicio5_intentsexplicitos.tools.User;
 
@@ -13,7 +16,6 @@ public class HomeActivity extends AppCompatActivity {
     private User user;
 
     @Override
-    //TODO Configurar actionbar: poner navigationIcon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
@@ -27,9 +29,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setActionBarSettings() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.home_title));
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ac_menu);
     }
 }

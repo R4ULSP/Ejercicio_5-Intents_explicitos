@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import es.travelworld.ejercicio5_intentsexplicitos.databinding.ActivityLoginBinding;
 import es.travelworld.ejercicio5_intentsexplicitos.tools.User;
@@ -19,10 +21,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ActivityLoginBinding binding;
     private User user;
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result ->{
-        if(result.getResultCode() == Activity.RESULT_OK){
-            if(result.getData() != null){
+        if(result.getResultCode() == Activity.RESULT_OK && result.getData() != null){
                 user = (User)result.getData().getSerializableExtra(KEY_USER);
-            }
         }
     });
 
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         binding.loginUser.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                // Not implemented yet
             }
 
             @Override
@@ -54,14 +54,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                // Not implemented yet
             }
         });
 
         binding.loginPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                // Not implemented yet
             }
 
             @Override
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                // Not implemented yet
             }
         });
     }
@@ -81,10 +81,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         boolean userValidation = false;
         boolean passwordValidation = false;
 
-        if(!binding.loginUser.getText().toString().equals("")){
+        if(binding.loginUser.getText()!=null && !binding.loginUser.getText().toString().equals("")){
             userValidation = true;
         }
-        if(!binding.loginPassword.getText().toString().equals("")){
+        if(binding.loginPassword.getText()!=null && !binding.loginPassword.getText().toString().equals("")){
             passwordValidation = true;
         }
 
@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         if (binding.loginForgotPasswordButton.equals(view)) {
-            Snackbar.make(binding.getRoot(), R.string.wip_feature, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(binding.getRoot(), R.string.wip_feature, BaseTransientBottomBar.LENGTH_LONG).show();
         }
         else if (binding.loginNewAccountButton.equals(view)){
             Intent intent = new Intent(this,RegisterActivity.class);
@@ -109,13 +109,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login() {
+        if(binding.loginPassword.getText()==null || binding.loginUser.getText()==null){
+            Snackbar.make(binding.getRoot(), R.string.login_error, BaseTransientBottomBar.LENGTH_LONG).show();
+            return;
+        }
         if(binding.loginPassword.getText().toString().equals(user.getPassword()) && binding.loginUser.getText().toString().equals(user.getName())){
-            Intent intent = new Intent(this,HomeActivity.class);
+            Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra(KEY_USER, user);
             startActivity(intent);
         }
         else{
-            Snackbar.make(binding.getRoot(), R.string.login_error, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(binding.getRoot(), R.string.login_error, BaseTransientBottomBar.LENGTH_LONG).show();
         }
     }
 }
