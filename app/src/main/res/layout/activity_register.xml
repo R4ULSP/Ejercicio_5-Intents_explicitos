@@ -8,7 +8,7 @@
     tools:context=".RegisterActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/avatar_img"
+        android:id="@+id/register_avatar_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/avatar_img_selector"
+        android:id="@+id/register_avatar_img_selector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -27,17 +27,17 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/avatar_img" />
+        app:layout_constraintBottom_toBottomOf="@id/register_avatar_img" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_name"
+        android:id="@+id/register_name_layout"
         style="@style/registry_text_inputs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/avatar_img">
+        app:layout_constraintTop_toBottomOf="@id/register_avatar_img">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_name"
+            android:id="@+id/register_input_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/your_name" />
@@ -45,14 +45,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_Layout_lastname"
+        android:id="@+id/register_lastname_layout"
         style="@style/registry_text_inputs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/input_layout_name">
+        app:layout_constraintTop_toBottomOf="@id/register_name_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_lastname"
+            android:id="@+id/register_input_lastname"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="@string/your_lastname" />
@@ -60,17 +60,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_layout_age"
+        android:id="@+id/register_age_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="30dp"
         app:boxBackgroundColor="@color/grey_100"
-        app:layout_constraintTop_toBottomOf="@id/input_Layout_lastname">
+        app:layout_constraintTop_toBottomOf="@id/register_lastname_layout">
 
         <AutoCompleteTextView
-            android:id="@+id/input_age"
+            android:id="@+id/register_input_age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_join"
+        android:id="@+id/register_join_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="70dp"
@@ -90,12 +90,12 @@
         android:text="@string/join"
         android:textAllCaps="false"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/privacy_policy"
-        app:layout_constraintTop_toBottomOf="@+id/input_layout_age"
+        app:layout_constraintBottom_toTopOf="@id/register_privacy_policy_text"
+        app:layout_constraintTop_toBottomOf="@+id/register_age_layout"
         app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/privacy_policy"
+        android:id="@+id/register_privacy_policy_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -103,11 +103,11 @@
         android:gravity="end"
         android:text="@string/privacy_policy"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/view_conditions"
+        app:layout_constraintEnd_toStartOf="@+id/register_view_conditions_button"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/view_conditions"
+        android:id="@+id/register_view_conditions_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
@@ -115,9 +115,9 @@
         android:text="@string/view_conditions"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/privacy_policy"
+        app:layout_constraintBottom_toBottomOf="@id/register_privacy_policy_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/privacy_policy"
-        app:layout_constraintTop_toTopOf="@id/privacy_policy" />
+        app:layout_constraintStart_toEndOf="@+id/register_privacy_policy_text"
+        app:layout_constraintTop_toTopOf="@id/register_privacy_policy_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

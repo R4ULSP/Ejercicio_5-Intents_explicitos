@@ -24,7 +24,7 @@
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/buttons_container"
+            android:id="@+id/home_buttons_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -33,7 +33,7 @@
             app:layout_constraintTop_toBottomOf="@id/home_title_textview">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/camera_button"
+                android:id="@+id/home_camera_button"
                 style="@style/home_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,43 +44,43 @@
                 app:layout_constraintTop_toBottomOf="@id/home_title_textview" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/favourite_button"
+                android:id="@+id/home_favourite_button"
                 style="@style/home_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="25"
                 android:backgroundTint="@color/light_purple"
                 app:icon="@drawable/ic_favorite"
-                app:layout_constraintBottom_toBottomOf="@id/camera_button"
-                app:layout_constraintEnd_toStartOf="@id/terrain_button"
-                app:layout_constraintStart_toEndOf="@id/camera_button"
-                app:layout_constraintTop_toTopOf="@id/camera_button" />
+                app:layout_constraintBottom_toBottomOf="@id/home_camera_button"
+                app:layout_constraintEnd_toStartOf="@id/home_terrain_button"
+                app:layout_constraintStart_toEndOf="@id/home_camera_button"
+                app:layout_constraintTop_toTopOf="@id/home_camera_button" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/terrain_button"
+                android:id="@+id/home_terrain_button"
                 style="@style/home_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="25"
                 android:backgroundTint="@color/light_pink"
                 app:icon="@drawable/ic_terrain"
-                app:layout_constraintBottom_toBottomOf="@id/favourite_button"
-                app:layout_constraintEnd_toStartOf="@id/face_button"
-                app:layout_constraintStart_toEndOf="@id/favourite_button"
-                app:layout_constraintTop_toTopOf="@id/favourite_button" />
+                app:layout_constraintBottom_toBottomOf="@id/home_favourite_button"
+                app:layout_constraintEnd_toStartOf="@id/home_face_button"
+                app:layout_constraintStart_toEndOf="@id/home_favourite_button"
+                app:layout_constraintTop_toTopOf="@id/home_favourite_button" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/face_button"
+                android:id="@+id/home_face_button"
                 style="@style/home_buttons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="25"
                 android:backgroundTint="@color/light_orange"
                 app:icon="@drawable/ic_face"
-                app:layout_constraintBottom_toBottomOf="@id/terrain_button"
+                app:layout_constraintBottom_toBottomOf="@id/home_terrain_button"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/terrain_button"
-                app:layout_constraintTop_toTopOf="@id/terrain_button" />
+                app:layout_constraintStart_toEndOf="@id/home_terrain_button"
+                app:layout_constraintTop_toTopOf="@id/home_terrain_button" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/buttons_container">
+            app:layout_constraintTop_toBottomOf="@id/home_buttons_container">
 
             <com.google.android.material.card.MaterialCardView
                 style="@style/home_cards"
