@@ -11,6 +11,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Objects;
@@ -44,13 +46,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setListeners() {
-        binding.avatarImgSelector.setOnClickListener(this);
-        binding.viewConditions.setOnClickListener(this);
-        binding.btnJoin.setOnClickListener(this);
-        binding.inputAge.setOnItemClickListener(this);
+        binding.registerAvatarImgSelector.setOnClickListener(this);
+        binding.registerViewConditionsButton.setOnClickListener(this);
+        binding.registerJoinButton.setOnClickListener(this);
+        binding.registerInputAge.setOnItemClickListener(this);
 
 
-        binding.inputName.addTextChangedListener(new TextWatcher() {
+        binding.registerInputName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 // Not implemented yet
@@ -58,8 +60,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.inputLayoutName.setErrorEnabled(false);
-                validateChars(charSequence);
+                binding.registerNameLayout.setErrorEnabled(false);
+                validateChars(charSequence,binding.registerNameLayout);
                 validateForm();
             }
 
@@ -68,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 // Not implemented yet
             }
         });
-        binding.inputLastname.addTextChangedListener(new TextWatcher() {
+        binding.registerInputLastname.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 // Not implemented yet
@@ -76,8 +78,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                binding.inputLayoutLastname.setErrorEnabled(false);
-                validateChars(charSequence);
+                binding.registerLastnameLayout.setErrorEnabled(false);
+                validateChars(charSequence,binding.registerLastnameLayout);
                 validateForm();
             }
 
@@ -88,12 +90,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void validateChars(CharSequence charSequence){
+    private void validateChars(CharSequence charSequence, TextInputLayout textInputLayout){
         for (int j = 0; j < charSequence.length(); j++) {
             switch(charSequence.charAt(j)){
                 case '!':
                 case '@':
-                    binding.inputLayoutName.setError(getString(R.string.input_layput_name_error));
+                    textInputLayout.setError(getString(R.string.input_layput_name_error));
                     break;
                 default:
                     break;
@@ -102,45 +104,45 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void validateForm() {
-        binding.btnJoin.setEnabled(false);
+        binding.registerJoinButton.setEnabled(false);
         boolean nameValidation = false;
         boolean lastnameValidation = false;
         boolean ageValidation = false;
 
-        if(binding.inputName.getText()!=null && !binding.inputName.getText().toString().equals("") && !binding.inputLayoutName.isErrorEnabled()){
+        if(binding.registerInputName.getText()!=null && !binding.registerInputName.getText().toString().equals("") && !binding.registerNameLayout.isErrorEnabled()){
             nameValidation = true;
         }
-        if(binding.inputLastname.getText()!=null && !binding.inputLastname.getText().toString().equals("") && !binding.inputLayoutLastname.isErrorEnabled()){
+        if(binding.registerInputLastname.getText()!=null && !binding.registerInputLastname.getText().toString().equals("") && !binding.registerLastnameLayout.isErrorEnabled()){
             lastnameValidation = true;
         }
-        if(binding.inputAge.getText()!=null && !binding.inputAge.getText().toString().equals("") && !binding.inputLayoutAge.isErrorEnabled()){
+        if(binding.registerInputAge.getText()!=null && !binding.registerInputAge.getText().toString().equals("") && !binding.registerAgeLayout.isErrorEnabled()){
             ageValidation = true;
         }
 
         if(nameValidation && lastnameValidation && ageValidation){
-            binding.btnJoin.setEnabled(true);
+            binding.registerJoinButton.setEnabled(true);
         }
     }
 
     private void populateAgeEditText() {
         ages = getResources().getStringArray(R.array.ages);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.dropdown_item, ages);
-        binding.inputAge.setAdapter(adapter);
+        binding.registerInputAge.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View view) {
         Intent intent;
-        if (view.equals(binding.avatarImgSelector)) {
+        if (view.equals(binding.registerAvatarImgSelector)) {
             intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivity(intent);
-        } else if (view.equals(binding.viewConditions)) {
+        } else if (view.equals(binding.registerViewConditionsButton)) {
             intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developers.google.com/ml-kit/terms"));
             startActivity(intent);
-        } else if(view.equals(binding.btnJoin)){
-            user.setName(Objects.requireNonNull(binding.inputName.getText()).toString());
-            user.setLastname(Objects.requireNonNull(binding.inputLastname.getText()).toString());
-            user.setAgeGroup(binding.inputAge.getText().toString());
+        } else if(view.equals(binding.registerJoinButton)){
+            user.setName(Objects.requireNonNull(binding.registerInputName.getText()).toString());
+            user.setLastname(Objects.requireNonNull(binding.registerInputLastname.getText()).toString());
+            user.setAgeGroup(binding.registerInputAge.getText().toString());
 
             intent = new Intent(this,LoginActivity.class);
             intent.putExtra(KEY_USER,user);
@@ -152,9 +154,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         MaterialTextView materialTextView = (MaterialTextView) view;
-        binding.inputLayoutAge.setErrorEnabled(false);
+        binding.registerAgeLayout.setErrorEnabled(false);
         if(materialTextView.getText() != ages[ages.length-1]){
-            binding.inputLayoutAge.setError(getString(R.string.input_layout_age_error));
+            binding.registerAgeLayout.setError(getString(R.string.input_layout_age_error));
         }
         validateForm();
     }
